@@ -1,0 +1,400 @@
+mysql> use employee;
+Database changed
+mysql> CREATE TABLE personal(
+    -> id INT,
+    -> name VARCHAR(50),
+    -> birth_date DATE,
+    -> phone VARCHAR(12),
+    -> gender VARCHAR(1)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO personal(id, name, birth_date, phone, gender)
+    -> VALUES
+    -> (1, "Anil Kapoor", "1778-10-09", "9980809766", "M"),
+    -> (2, "Shweta kami", "1990-08-08", "9980808796", "F"),
+    -> (3, "Navid khan", "1980-11-02", "8980809956", "M"),
+    -> (4, "Rami mital", "1998-10-05", "8510809766", "F");
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee.personal;
++------+-------------+------------+------------+--------+
+| id   | name        | birth_date | phone      | gender |
++------+-------------+------------+------------+--------+
+|    1 | Anil Kapoor | 1778-10-09 | 9980809766 | M      |
+|    2 | Shweta kami | 1990-08-08 | 9980808796 | F      |
+|    3 | Navid khan  | 1980-11-02 | 8980809956 | M      |
+|    4 | Rami mital  | 1998-10-05 | 8510809766 | F      |
++------+-------------+------------+------------+--------+
+4 rows in set (0.00 sec)
+
+  SELECT id, name, phone FROM personal;
++------+-------------+------------+
+| id   | name        | phone      |
++------+-------------+------------+
+|    1 | Anil Kapoor | 9980809766 |
+|    2 | Shweta kami | 9980808796 |
+|    3 | Navid khan  | 8980809956 |
+|    4 | Rami mital  | 8510809766 |
++------+-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT id AS ID, name AS Worker, phone AS Number FROM personal;
++------+-------------+------------+
+| ID   | Worker      | Number     |
++------+-------------+------------+
+|    1 | Anil Kapoor | 9980809766 |
+|    2 | Shweta kami | 9980808796 |
+|    3 | Navid khan  | 8980809956 |
+|    4 | Rami mital  | 8510809766 |
++------+-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT * FROM employee.personal;
++------+-------------+------------+------------+--------+
+| id   | name        | birth_date | phone      | gender |
++------+-------------+------------+------------+--------+
+|    1 | Anil Kapoor | 1778-10-09 | 9980809766 | M      |
+|    2 | Shweta kami | 1990-08-08 | 9980808796 | F      |
+|    3 | Navid khan  | 1980-11-02 | 8980809956 | M      |
+|    4 | Rami mital  | 1998-10-05 | 8510809766 | F      |
++------+-------------+------------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT * FROM employee.personal;
++------+-------------+------------+------------+--------+
+| id   | name        | birth_date | phone      | gender |
++------+-------------+------------+------------+--------+
+|    1 | Anil Kapoor | 1778-10-09 | 9980809766 | M      |
+|    2 | Shweta kami | 1990-08-08 | 9980808796 | F      |
+|    3 | Navid khan  | 1980-11-02 | 8980809956 | M      |
+|    4 | Rami mital  | 1998-10-05 | 8510809766 | F      |
++------+-------------+------------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT * FROM employee.personal
+    -> WHERE gender = "F";
++------+-------------+------------+------------+--------+
+| id   | name        | birth_date | phone      | gender |
++------+-------------+------------+------------+--------+
+|    2 | Shweta kami | 1990-08-08 | 9980808796 | F      |
+|    4 | Rami mital  | 1998-10-05 | 8510809766 | F      |
++------+-------------+------------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE personal(
+    -> Age INT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 3
+mysql> CREATE TABLE personal(
+    -> age INT
+    -> );
+ERROR 1050 (42S01): Table 'personal' already exists
+mysql>  SELECT * FROM employee.personal
+    -> WHERE NOT gender = "M" OR name = "Navid khan";
++------+-------------+------------+------------+--------+
+| id   | name        | birth_date | phone      | gender |
++------+-------------+------------+------------+--------+
+|    2 | Shweta kami | 1990-08-08 | 9980808796 | F      |
+|    3 | Navid khan  | 1980-11-02 | 8980809956 | M      |
+|    4 | Rami mital  | 1998-10-05 | 8510809766 | F      |
++------+-------------+------------+------------+--------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> INSERT INTO personal(id, name, age, gender, birth_date)
+    -> VALUES
+    -> (1, "Ram Kumar", "19", "Male", "1989-02-09"),
+    -> (2, "Salman khan", "17", "Male", "1979-07-08"),
+    -> (3, "Meera khan", "19", "Female", "1988-04-05"),
+    -> (4, "Sarita Kumari", "21", "Female", "1999-03-15"),
+    -> (5, "Anil Kapoor", "20", "Male", "1990-06-19");
+ERROR 1406 (22001): Data too long for column 'gender' at row 1
+mysql> INSERT INTO personal(id, name, age, gender, birth_date)
+    -> VALUES
+    -> (1, "Ram Kumar", "19", "Male", "1989-02-09"),
+    -> (2, "Salman khan", "17", "Male", "1979-07-08"),
+    -> (3, "Meera khan", "19", "Female", "1988-04-05"),
+    -> (4, "Sarita Kumari", "21", "Female", "1999-03-15");
+ERROR 1406 (22001): Data too long for column 'gender' at row 1
+mysql> INSERT INTO personal(id, name, age, gender, birth_date)
+    -> VALUES
+    -> (1, "Ram Kumar", "19", "M", "1989-02-09"),
+    -> (2, "Salman khan", "17", "M", "1979-07-08"),
+    -> (3, "Meera khan", "19", "F", "1988-04-05"),
+    -> (4, "Sarita Kumari", "21", "F", "1999-03-15"),
+    -> (5, "Anil Kapoor", "20", "M", "1990-06-19");
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student.personal;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    1 | Ram Kumar     |   19 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+5 rows in set (0.00 sec)
+mysql> SELECT * FROM student.personal
+    -> WHERE age BETWEEN 18 AND 20;
++------+-------------+------+--------+------------+
+| id   | name        | age  | gender | birth_date |
++------+-------------+------+--------+------------+
+|    1 | Ram Kumar   |   19 | M      | 1989-02-09 |
+|    3 | Meera khan  |   19 | F      | 1988-04-05 |
+|    5 | Anil Kapoor |   20 | M      | 1990-06-19 |
++------+-------------+------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> WHERE id BETWEEN 2 AND 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE id BETWEEN 2 AND 5' at line 1
+mysql> SELECT * FROM student.personal
+    -> WHERE id BETWEEN 2 AND 5;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE id NOT BETWEEN 2 AND 5;
++------+-----------+------+--------+------------+
+| id   | name      | age  | gender | birth_date |
++------+-----------+------+--------+------------+
+|    1 | Ram Kumar |   19 | M      | 1989-02-09 |
++------+-----------+------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE Name LIKE "s%";
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
++------+---------------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE name REGEXP 'ra';
++------+------------+------+--------+------------+
+| id   | name       | age  | gender | birth_date |
++------+------------+------+--------+------------+
+|    1 | Ram Kumar  |   19 | M      | 1989-02-09 |
+|    3 | Meera khan |   19 | F      | 1988-04-05 |
++------+------------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE name REGEXP '^ra';
++------+-----------+------+--------+------------+
+| id   | name      | age  | gender | birth_date |
++------+-----------+------+--------+------------+
+|    1 | Ram Kumar |   19 | M      | 1989-02-09 |
++------+-----------+------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE name REGEXP 'an$';
++------+-------------+------+--------+------------+
+| id   | name        | age  | gender | birth_date |
++------+-------------+------+--------+------------+
+|    2 | Salman khan |   17 | M      | 1979-07-08 |
+|    3 | Meera khan  |   19 | F      | 1988-04-05 |
++------+-------------+------+--------+------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM student.personal
+    -> WHERE name REGEXP 'ram|kapoor|khan';
++------+-------------+------+--------+------------+
+| id   | name        | age  | gender | birth_date |
++------+-------------+------+--------+------------+
+|    1 | Ram Kumar   |   19 | M      | 1989-02-09 |
+|    2 | Salman khan |   17 | M      | 1979-07-08 |
+|    3 | Meera khan  |   19 | F      | 1988-04-05 |
+|    5 | Anil Kapoor |   20 | M      | 1990-06-19 |
++------+-------------+------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> ORDER BY name;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    1 | Ram Kumar     |   19 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
++------+---------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> ORDER BY name ASC;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    1 | Ram Kumar     |   19 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
++------+---------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> ORDER BY name DESC;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    1 | Ram Kumar     |   19 | M      | 1989-02-09 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal
+    -> SELECT DISTINCT age FROM personal;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT DISTINCT age FROM personal' at line 2
+mysql> SELECT DISTINCT age FROM personal;
+ERROR 1046 (3D000): No database selected
+mysql> SELECT * FROM student.personal
+    -> SELECT DISTINCT age FROM personal;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT DISTINCT age FROM personal' at line 2
+mysql> SELECT * FROM student.personal
+    -> LIMIT 2;
++------+-------------+------+--------+------------+
+| id   | name        | age  | gender | birth_date |
++------+-------------+------+--------+------------+
+|    1 | Ram Kumar   |   19 | M      | 1989-02-09 |
+|    2 | Salman khan |   17 | M      | 1979-07-08 |
++------+-------------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(name) FROM personal;
+ERROR 1046 (3D000): No database selected
+mysql> SELECT * FROM student.personal
+    -> SELECT COUNT(name) FROM personal;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT COUNT(name) FROM personal' at line 2
+mysql> SELECT COUNT(name) FROM student.personal;
++-------------+
+| COUNT(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(age) AS Age FROM student.personal;
++------+
+| Age  |
++------+
+|   21 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(age) AS Age FROM student.personal;
++------+
+| Age  |
++------+
+|   17 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student.personal;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    1 | Ram Kumar     |   19 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE student.personal
+    -> SET age = 15
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM student.personal;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    1 | Ram Kumar     |   15 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+5 rows in set (0.01 sec)
+
+ SELECT * FROM student.personal;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    1 | Ram Kumar     |   15 | M      | 1989-02-09 |
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+5 rows in set (0.01 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM student.personal
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student.personal;
++------+---------------+------+--------+------------+
+| id   | name          | age  | gender | birth_date |
++------+---------------+------+--------+------------+
+|    2 | Salman khan   |   17 | M      | 1979-07-08 |
+|    3 | Meera khan    |   19 | F      | 1988-04-05 |
+|    4 | Sarita Kumari |   21 | F      | 1999-03-15 |
+|    5 | Anil Kapoor   |   20 | M      | 1990-06-19 |
++------+---------------+------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE student.city(
+    -> cid INT NOT NULL AUTO_INCREMENT,
+    -> cityname VARCHAR(50) NOT NULL,
+    -> PRIMARY KEY (cid)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO student.city(cityname)
+    -> VALUES('Agra'),
+    -> ('Delhi'),
+    -> ('Bhopal'),
+    -> ('Jaipur'),
+    -> ('Noida');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student.city;
++-----+----------+
+| cid | cityname |
++-----+----------+
+|   1 | Agra     |
+|   2 | Delhi    |
+|   3 | Bhopal   |
+|   4 | Jaipur   |
+|   5 | Noida    |
++-----+----------+
+5 rows in set (0.00 sec)
